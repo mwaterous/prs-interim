@@ -69,7 +69,7 @@
     linkedom "^0.14.19"
     prismjs "^1.29.0"
 
-"@11ty/eleventy-plugin-vite@^2.0.0-canary.1":
+"@11ty/eleventy-plugin-vite@2.0.0-canary.2":
   version "2.0.0-canary.2"
   resolved "https://registry.yarnpkg.com/@11ty/eleventy-plugin-vite/-/eleventy-plugin-vite-2.0.0-canary.2.tgz#c6b9ceabfec16c341bebbb529d352d976780e8fe"
   integrity sha512-bHL9gAsyipE+ekJCWx6gN5R/7af8MFbKgaEZYtxW9piRm6Z10qv5tno6vm46W3sobmFG88CaRrYURPv5TDttow==
@@ -84,7 +84,7 @@
   dependencies:
     normalize-path "^3.0.0"
 
-"@11ty/eleventy@^2.0.0-canary.13":
+"@11ty/eleventy@2.0.0-canary.16":
   version "2.0.0-canary.16"
   resolved "https://registry.yarnpkg.com/@11ty/eleventy/-/eleventy-2.0.0-canary.16.tgz#9780ff27ec21fef7081d12c1acc1c6ed1cd48613"
   integrity sha512-6HXaxmzTYDW0ihzasfa3+SbGeHAF6j7FFwgOnx2cjhwvcFAV2Ci9cZk/lQN9pHCilaI6OgcwOThC7hzjpbro1g==
@@ -4113,7 +4113,7 @@ postcss-minify-selectors@^5.2.1:
   dependencies:
     postcss-selector-parser "^6.0.5"
 
-postcss-nesting@^10.1.10:
+postcss-nesting@^10.2.0:
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-10.2.0.tgz#0b12ce0db8edfd2d8ae0aaf86427370b898890be"
   integrity sha512-EwMkYchxiDiKUhlJGzWsD9b2zvq/r2SSubcRrgP+jujMXFzqvANLt16lJANC+5uZ6hjI7lpRmI6O8JIl+8l1KA==

@@ -15,6 +15,9 @@ const shortcodes = require('./utils/shortcodes.js')
 const { resolve } = require('path')
 
 module.exports = function (eleventyConfig) {
+	eleventyConfig.setServerPassthroughCopyBehavior('copy')
+	eleventyConfig.addPassthroughCopy('public')
+
 	// Plugins
 	eleventyConfig.addPlugin(EleventyPluginNavigation)
 	eleventyConfig.addPlugin(EleventyPluginRss)
@@ -28,7 +31,7 @@ module.exports = function (eleventyConfig) {
 			clearScreen: false,
 			server: {
 				mode: 'development',
-				middlewareMode: true,
+				middlewareMode: true
 			},
 			appType: 'custom',
 			assetsInclude: ['**/*.xml', '**/*.txt'],
@@ -43,33 +46,34 @@ module.exports = function (eleventyConfig) {
 						chunkFileNames: 'assets/js/[name].[hash].js',
 						entryFileNames: 'assets/js/[name].[hash].js'
 					},
-					plugins: [rollupPluginCritical({
+					plugins: [
+						rollupPluginCritical({
 							criticalUrl: './_site/',
 							criticalBase: './_site/',
 							criticalPages: [
 								{ uri: 'index.html', template: 'index' },
 								{ uri: 'posts/index.html', template: 'posts/index' },
-								{ uri: '404.html', template: '404' },
+								{ uri: '404.html', template: '404' }
 							],
 							criticalConfig: {
 								inline: true,
 								dimensions: [
 									{
-									  height: 900,
-									  width: 375,
+										height: 900,
+										width: 375
 									},
 									{
-									  height: 720,
-									  width: 1280,
+										height: 720,
+										width: 1280
 									},
 									{
 										height: 1080,
-										width: 1920,
+										width: 1920
 									}
 								],
 								penthouse: {
-									forceInclude: ['.fonts-loaded-1 body', '.fonts-loaded-2 body'],
-								  }
+									forceInclude: ['.fonts-loaded-1 body', '.fonts-loaded-2 body']
+								}
 							}
 						})
 					]
