@@ -1,9 +1,4 @@
-const markdownIt = require('markdown-it')
-const markdownItAnchor = require('markdown-it-anchor')
-
-const EleventyPluginNavigation = require('@11ty/eleventy-navigation')
 const EleventyPluginRss = require('@11ty/eleventy-plugin-rss')
-const EleventyPluginSyntaxhighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const EleventyVitePlugin = require('@11ty/eleventy-plugin-vite')
 
 const rollupPluginCritical = require('rollup-plugin-critical').default
@@ -12,16 +7,11 @@ const filters = require('./utils/filters.js')
 const transforms = require('./utils/transforms.js')
 const shortcodes = require('./utils/shortcodes.js')
 
-const { resolve } = require('path')
+// const { resolve } = require('path')
 
 module.exports = function (eleventyConfig) {
-	eleventyConfig.setServerPassthroughCopyBehavior('copy')
-	eleventyConfig.addPassthroughCopy('public')
-
 	// Plugins
-	eleventyConfig.addPlugin(EleventyPluginNavigation)
 	eleventyConfig.addPlugin(EleventyPluginRss)
-	eleventyConfig.addPlugin(EleventyPluginSyntaxhighlight)
 	eleventyConfig.addPlugin(EleventyVitePlugin, {
 		tempFolderName: '.11ty-vite', // Default name of the temp folder
 
@@ -52,7 +42,6 @@ module.exports = function (eleventyConfig) {
 							criticalBase: './_site/',
 							criticalPages: [
 								{ uri: 'index.html', template: 'index' },
-								{ uri: 'posts/index.html', template: 'posts/index' },
 								{ uri: '404.html', template: '404' }
 							],
 							criticalConfig: {
@@ -71,9 +60,7 @@ module.exports = function (eleventyConfig) {
 										width: 1920
 									}
 								],
-								penthouse: {
-									forceInclude: ['.fonts-loaded-1 body', '.fonts-loaded-2 body']
-								}
+								penthouse: {}
 							}
 						})
 					]
@@ -99,32 +86,17 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`)
 
-	// Customize Markdown library and settings:
-	let markdownLibrary = markdownIt({
-		html: true,
-		breaks: true,
-		linkify: true
-	}).use(markdownItAnchor, {
-		permalink: markdownItAnchor.permalink.ariaHidden({
-			placement: 'after',
-			class: 'direct-link',
-			symbol: '#',
-			level: [1, 2, 3, 4]
-		}),
-		slugify: eleventyConfig.getFilter('slug')
-	})
-	eleventyConfig.setLibrary('md', markdownLibrary)
-
 	// Layouts
 	eleventyConfig.addLayoutAlias('base', 'base.njk')
-	eleventyConfig.addLayoutAlias('post', 'post.njk')
 
 	// Copy/pass-through files
+	eleventyConfig.setServerPassthroughCopyBehavior('copy')
+	eleventyConfig.addPassthroughCopy('public')
 	eleventyConfig.addPassthroughCopy('src/assets/css')
 	eleventyConfig.addPassthroughCopy('src/assets/js')
 
 	return {
-		templateFormats: ['md', 'njk', 'html', 'liquid'],
+		templateFormats: ['njk', 'html', 'liquid'],
 		htmlTemplateEngine: 'njk',
 		passthroughFileCopy: true,
 		dir: {
