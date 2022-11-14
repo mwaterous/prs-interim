@@ -12,6 +12,9 @@ const shortcodes = require('./utils/shortcodes.js')
 // const { resolve } = require('path')
 
 module.exports = function (eleventyConfig) {
+	eleventyConfig.setServerPassthroughCopyBehavior('copy')
+	eleventyConfig.addPassthroughCopy('public')
+
 	// Plugins
 	eleventyConfig.addPlugin(EleventyPluginRss)
 	eleventyConfig.addPlugin(EleventyVitePlugin, {
@@ -39,32 +42,7 @@ module.exports = function (eleventyConfig) {
 						entryFileNames: 'assets/js/[name].[hash].js'
 					},
 					plugins: [
-						rollupPluginCritical({
-							criticalUrl: './_site/',
-							criticalBase: './_site/',
-							criticalPages: [
-								{ uri: 'index.html', template: 'index' },
-								{ uri: '404.html', template: '404' }
-							],
-							criticalConfig: {
-								inline: true,
-								dimensions: [
-									{
-										height: 900,
-										width: 375
-									},
-									{
-										height: 720,
-										width: 1280
-									},
-									{
-										height: 1080,
-										width: 1920
-									}
-								],
-								penthouse: {}
-							}
-						})
+
 					]
 				}
 			}
@@ -114,8 +92,6 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addLayoutAlias('base', 'base.njk')
 
 	// Copy/pass-through files
-	eleventyConfig.setServerPassthroughCopyBehavior('copy')
-	eleventyConfig.addPassthroughCopy('public')
 	eleventyConfig.addPassthroughCopy('src/assets/css')
 	eleventyConfig.addPassthroughCopy('src/assets/js')
 
