@@ -1,5 +1,5 @@
 /**
- *  Typography design tokens: Font-sizes, line-height, etc. 
+ *  Typography design tokens: Font-sizes, line-height, etc.
  */
 
  /**
@@ -7,24 +7,24 @@
   */
  :root {
     --fluid-min-width: 320;
-    --fluid-max-width: 1500;
-    --fluid-min-size: 18;
-    --fluid-max-size: 22;
+    --fluid-max-width: 1400;
+    --fluid-min-size: 16;
+    --fluid-max-size: 20;
     --fluid-min-ratio: 1.2;
-    --fluid-max-ratio: 1.5;
+    --fluid-max-ratio: 1.7;
   }
-  
+
   :root {
     --fluid-screen: 100vw;
     --fluid-bp: calc((var(--fluid-screen) - ((var(--fluid-min-width) / 16) * 1rem)) / ((var(--fluid-max-width) / 16) - (var(--fluid-min-width) / 16)));
   }
-  
+
   @media screen and (min-width: 1500px) {
     :root {
       --fluid-screen: calc(var(--fluid-max-width) * 1px);
     }
   }
-  
+
   :root {
     --fluid-min-scale-0: var(--fluid-min-ratio);
     --fluid-min-scale-1: var(--fluid-min-scale-0) * var(--fluid-min-ratio);

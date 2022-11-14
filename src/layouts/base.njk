@@ -17,15 +17,75 @@
 	<a href="#main" class="skiplink">Skip to main content</a>
 
 	<div class="layout" role="document">
+		<div class="bg bg-teal"></div>
+		<div class="bg bg-red"></div>
+		<div class="bg bg-tan"></div>
 		<main id="main" class="main">
-			{{ content | safe }}
+			<div class="fixed">
+				{{ content | safe }}
+			</div>
 			<div class="images">
-				
+				<div class="img-wrapper" data-rellax-xs-speed="1" data-rellax-speed="3" data-rellax-percentage="0.5" data-color="teal">
+					{% image "./public/assets/images/project-resource-studio-bw-5.jpg", "", "", "(min-width: 1200px) 25vw, (min-width: 680px) 50vw, 100vw" %}
+				</div>
+				<div class="img-wrapper" data-rellax-xs-speed="0" data-rellax-speed="1" data-rellax-percentage="0.5">
+					{% image "./public/assets/images/project-resource-studio-bw-2.jpg", "", "", "(min-width: 1200px) 25vw, (min-width: 680px) 50vw, 100vw" %}
+				</div>
+				<div class="img-wrapper" data-rellax-xs-speed="1" data-rellax-speed="4" data-rellax-percentage="0.5">
+					{% image "./public/assets/images/project-resource-studio-bw-3.jpg", "", "", "(min-width: 1200px) 25vw, (min-width: 680px) 50vw, 100vw" %}
+				</div>
+				<div class="img-wrapper" data-rellax-xs-speed="0" data-rellax-speed="6" data-rellax-percentage="0.5" data-color="tan">
+					{% image "./public/assets/images/project-resource-studio-bw-4.jpg", "", "", "(min-width: 1200px) 25vw, (min-width: 680px) 50vw, 100vw" %}
+				</div>
+				<div class="img-wrapper" data-rellax-xs-speed="-1" data-rellax-speed="2" data-rellax-percentage="0.5">
+					{% image "./public/assets/images/project-resource-studio-bw-1.jpg", "", "", "(min-width: 1200px) 25vw, (min-width: 680px) 50vw, 100vw" %}
+				</div>
+				<div class="img-wrapper" data-rellax-xs-speed="0" data-rellax-speed="1" data-rellax-percentage="0.5">
+					{% image "./public/assets/images/project-resource-studio-bw-7.jpg", "", "", "(min-width: 1200px) 25vw, (min-width: 680px) 50vw, 100vw" %}
+				</div>
+			</div>
+			<div class="container">
+				<div class="content-body bottom">
+					<p>PRS will evolve in a more nuanced direction in 2023; our website will be paused in the interim. </p>
+					<p>Please connect directly with Kathleen Wanatowicz at 970-618-5114 or <a href="mailto:kathleen@prstudico.com">kathleen@prstudico.com</a> for more information. </p>
+				</div>
 			</div>
 		</main>
 	</div>
 
 	<script type="module" src="{{ '/assets/js/main.js' | url }}"></script>
+	<script>
+
+		const panels = document.querySelectorAll(".img-wrapper");
+		let lastClass = "";
+		console.log(panels)
+		window.addEventListener("scroll", function () {
+			let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			let windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+			let scroll = Math.floor(scrollTop + windowHeight / 3);
+
+			panels.forEach((panel) => {
+				if (panel.offsetTop <= scroll && panel.offsetTop + panel.offsetHeight > scroll) {
+					if (panel.getAttribute("data-color") !== null) {
+
+						let currentClass = "color-" + panel.getAttribute("data-color");
+						console.log(currentClass)
+
+						if (currentClass != lastClass) {
+							console.log('inside')
+							document.body.classList.add(currentClass);
+							if (lastClass != "") {
+								console.log('inside inside')
+								document.body.classList.remove(lastClass);
+							}
+							lastClass = currentClass;
+						}
+					}
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>

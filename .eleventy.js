@@ -1,6 +1,8 @@
 const EleventyPluginRss = require('@11ty/eleventy-plugin-rss')
 const EleventyVitePlugin = require('@11ty/eleventy-plugin-vite')
 
+const Image = require('@11ty/eleventy-img')
+
 const rollupPluginCritical = require('rollup-plugin-critical').default
 
 const filters = require('./utils/filters.js')
@@ -84,6 +86,28 @@ module.exports = function (eleventyConfig) {
 		eleventyConfig.addShortcode(shortcodeName, shortcodes[shortcodeName])
 	})
 
+	/* Shortcodes */
+	const imageShortcode = async (src, className, alt, sizes) => {
+		let metadata = await Image(src, {
+			widths: [600, 1200],
+			formats: ['webp', 'jpeg'],
+			outputDir: './_site/img/',
+			urlPath: '/img/'
+		})
+
+		let imageAttributes = {
+			class: className,
+			alt,
+			sizes,
+			loading: 'lazy',
+			decoding: 'async'
+		}
+
+		return Image.generateHTML(metadata, imageAttributes)
+	}
+
+	eleventyConfig.addNunjucksAsyncShortcode('image', imageShortcode)
+
 	eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`)
 
 	// Layouts
@@ -96,8 +120,8 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/assets/js')
 
 	return {
-		templateFormats: ['njk', 'html', 'liquid'],
-		htmlTemplateEngine: 'njk',
+		templateFormats: ['html', 'liquid', 'njk'],
+		htmlTemplateEngine: 'liquid',
 		passthroughFileCopy: true,
 		dir: {
 			input: 'src',
